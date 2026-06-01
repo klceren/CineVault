@@ -1,0 +1,814 @@
+/* ============================================================
+   style.css — SİTE GENELİ STİL DOSYASI
+   
+   NOT: Bu dosya saf CSS'dir, PHP değil.
+   PHP dinamik renkler için <style> etiketinde CSS değişkeni
+   tanımlıyor (filmdetay.php'ye bakın): var(--film-renk)
+   ============================================================ */
+
+/* CSS DEĞİŞKENLERİ — Tüm sayfada tutarlı renk/font kullanımı */
+:root {
+    --bg:        #0a0a0f;
+    --bg2:       #111118;
+    --bg3:       #1a1a24;
+    --border:    #2a2a3a;
+    --text:      #e8e8f0;
+    --text2:     #8888aa;
+    --accent:    #e8c547;
+    --accent2:   #ff6b6b;
+    --radius:    12px;
+    --font-bas:  'Bebas Neue', cursive;
+    --font-gov:  'DM Sans', sans-serif;
+}
+
+/* RESET ve TEMEL AYARLAR */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background:  var(--bg);
+    color:       var(--text);
+    font-family: var(--font-gov);
+    font-size:   16px;
+    line-height: 1.6;
+    min-height:  100vh;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { opacity: 0.8; }
+
+/* ============================================================
+   NAVİGASYON
+   ============================================================ */
+.navbar {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    padding:         1rem 2rem;
+    background:      var(--bg2);
+    border-bottom:   1px solid var(--border);
+    position:        sticky;
+    top:             0;
+    z-index:         100;
+    backdrop-filter: blur(10px);
+}
+
+.nav-logo {
+    font-family: var(--font-bas);
+    font-size:   1.8rem;
+    color:       var(--accent);
+    letter-spacing: 1px;
+}
+
+.nav-linkler { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.nav-link {
+    padding:       0.4rem 0.9rem;
+    border-radius: var(--radius);
+    color:         var(--text2);
+    font-size:     0.9rem;
+    font-weight:   500;
+    transition:    all 0.2s;
+}
+
+.nav-link:hover, .nav-link.aktif {
+    color:      var(--accent);
+    background: var(--bg3);
+    opacity:    1;
+}
+
+/* ============================================================
+   ANA İÇERİK
+   ============================================================ */
+.ana-icerik {
+    max-width: 1100px;
+    margin:    0 auto;
+    padding:   2rem 1.5rem 4rem;
+}
+
+/* ============================================================
+   GİRİŞ SAYFASI
+   ============================================================ */
+.auth-page {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    min-height:      100vh;
+    background:      var(--bg);
+    overflow:        hidden;
+    position:        relative;
+}
+
+.auth-container {
+    position: relative;
+    z-index:  2;
+}
+
+/* Film şeridi dekoratif elementler */
+.film-strip {
+    position:   fixed;
+    top:        0;
+    bottom:     0;
+    width:      60px;
+    background: repeating-linear-gradient(
+        180deg,
+        var(--bg3) 0px,
+        var(--bg3) 40px,
+        var(--bg2) 40px,
+        var(--bg2) 50px
+    );
+    opacity: 0.4;
+}
+.film-strip.left  { left: 0; }
+.film-strip.right { right: 0; }
+
+.auth-box {
+    background:    var(--bg2);
+    border:        1px solid var(--border);
+    border-radius: 20px;
+    padding:       2.5rem 2rem;
+    width:         min(400px, 90vw);
+    text-align:    center;
+}
+
+.logo {
+    font-family:    var(--font-bas);
+    font-size:      2.5rem;
+    color:          var(--accent);
+    letter-spacing: 2px;
+    margin-bottom:  0.25rem;
+}
+
+.auth-subtitle {
+    color:         var(--text2);
+    margin-bottom: 1.5rem;
+    font-size:     0.95rem;
+}
+
+.auth-hint {
+    margin-top:  1rem;
+    color:       var(--text2);
+    font-size:   0.85rem;
+}
+
+/* ============================================================
+   FORM ELEMANLARI
+   ============================================================ */
+.form-grup {
+    margin-bottom: 1rem;
+    text-align:    left;
+}
+
+.form-grup label {
+    display:       block;
+    margin-bottom: 0.4rem;
+    font-size:     0.85rem;
+    color:         var(--text2);
+    font-weight:   500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-grup input,
+.form-grup textarea,
+.form-grup select {
+    width:         100%;
+    padding:       0.75rem 1rem;
+    background:    var(--bg3);
+    border:        1px solid var(--border);
+    border-radius: var(--radius);
+    color:         var(--text);
+    font-family:   var(--font-gov);
+    font-size:     1rem;
+    transition:    border-color 0.2s;
+    outline:       none;
+    resize:        vertical;
+}
+
+.form-grup input:focus,
+.form-grup textarea:focus {
+    border-color: var(--accent);
+}
+
+.form-grup small {
+    color:      var(--text2);
+    font-size:  0.8rem;
+    margin-top: 0.25rem;
+    display:    block;
+}
+
+.zorunlu { color: var(--accent2); }
+
+/* ============================================================
+   BUTONLAR
+   ============================================================ */
+.btn-giris, .btn-ana {
+    display:       inline-block;
+    width:         100%;
+    padding:       0.85rem 1.5rem;
+    background:    var(--accent);
+    color:         #000;
+    border:        none;
+    border-radius: var(--radius);
+    font-family:   var(--font-bas);
+    font-size:     1.2rem;
+    letter-spacing: 1px;
+    cursor:        pointer;
+    transition:    transform 0.15s, opacity 0.15s;
+    text-align:    center;
+    margin-top:    0.5rem;
+}
+
+.btn-ana {
+    width:   auto;
+    display: inline-block;
+}
+
+.btn-giris:hover, .btn-ana:hover {
+    opacity:   0.9;
+    transform: translateY(-1px);
+}
+
+.btn-kucuk {
+    display:       inline-block;
+    padding:       0.4rem 0.9rem;
+    background:    var(--bg3);
+    border:        1px solid var(--border);
+    border-radius: var(--radius);
+    font-size:     0.85rem;
+    color:         var(--text2);
+    margin-top:    0.75rem;
+    transition:    all 0.2s;
+}
+
+.btn-kucuk:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
+
+.btn-cikis {
+    padding:       0.75rem 2rem;
+    background:    transparent;
+    border:        1px solid var(--accent2);
+    border-radius: var(--radius);
+    color:         var(--accent2);
+    font-family:   var(--font-gov);
+    font-size:     1rem;
+    cursor:        pointer;
+    transition:    all 0.2s;
+}
+
+.btn-cikis:hover {
+    background: var(--accent2);
+    color:      #fff;
+}
+
+/* ============================================================
+   BİLDİRİM KUTULARI
+   ============================================================ */
+.hata-kutu {
+    background:    #ff6b6b22;
+    border:        1px solid var(--accent2);
+    border-radius: var(--radius);
+    padding:       0.75rem 1rem;
+    color:         #ff8f8f;
+    margin-bottom: 1rem;
+    font-size:     0.9rem;
+    text-align:    left;
+}
+
+.basari-kutu {
+    background:    #43e97b22;
+    border:        1px solid #43e97b;
+    border-radius: var(--radius);
+    padding:       0.75rem 1rem;
+    color:         #43e97b;
+    margin-bottom: 1rem;
+    font-size:     0.9rem;
+}
+
+/* ============================================================
+   HERO BÖLÜMÜ
+   ============================================================ */
+.hero {
+    padding:    3rem 0 2rem;
+    text-align: center;
+}
+
+.hero-ic { max-width: 600px; margin: 0 auto; }
+
+.hero-etiket {
+    display:       inline-block;
+    padding:       0.25rem 0.75rem;
+    background:    var(--bg3);
+    border:        1px solid var(--border);
+    border-radius: 20px;
+    font-size:     0.85rem;
+    color:         var(--text2);
+    margin-bottom: 1rem;
+}
+
+.hero h1 {
+    font-family:    var(--font-bas);
+    font-size:      clamp(2.5rem, 6vw, 4rem);
+    letter-spacing: 2px;
+    line-height:    1.1;
+    margin-bottom:  0.75rem;
+}
+
+.vurgu { color: var(--accent); }
+
+.hero p {
+    color:         var(--text2);
+    font-size:     1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   BÖLÜM BAŞLIKLARI
+   ============================================================ */
+.bolum { margin: 2rem 0; }
+
+.bolum-baslik {
+    font-family:    var(--font-bas);
+    font-size:      1.8rem;
+    letter-spacing: 1px;
+    margin-bottom:  1.5rem;
+    color:          var(--text);
+}
+
+.sayfa-baslik {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.sayfa-baslik h1 {
+    font-family:    var(--font-bas);
+    font-size:      clamp(2rem, 5vw, 3rem);
+    letter-spacing: 2px;
+    color:          var(--accent);
+}
+
+.sayfa-baslik p { color: var(--text2); margin-top: 0.25rem; }
+
+/* ============================================================
+   FİLM KARTLARI
+   ============================================================ */
+.film-grid {
+    display:               grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap:                   1rem;
+}
+
+.film-kart {
+    background:    var(--bg2);
+    border:        1px solid var(--border);
+    border-radius: var(--radius);
+    padding:       1.25rem;
+    transition:    transform 0.2s, border-color 0.2s;
+    display:       flex;
+    flex-direction: column;
+    gap:           0.75rem;
+}
+
+.film-kart:hover {
+    transform:    translateY(-3px);
+    border-color: var(--accent);
+}
+
+.film-poster {
+    width:         100%;
+    aspect-ratio:  2/3;
+    overflow:      hidden;
+    border-radius: 8px;
+    background:    var(--bg3);
+}
+
+.film-poster img {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    display:    block;
+    transition: transform 0.3s;
+}
+
+.film-kart:hover .film-poster img {
+    transform: scale(1.04);
+}
+
+.film-bilgi { flex: 1; }
+
+.film-bilgi h3 {
+    font-size:     1.05rem;
+    font-weight:   500;
+    margin-bottom: 0.4rem;
+}
+
+.film-tur {
+    display:       inline-block;
+    padding:       0.2rem 0.6rem;
+    background:    var(--bg3);
+    border-radius: 6px;
+    font-size:     0.78rem;
+    color:         var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.film-yonetmen {
+    font-size:     0.85rem;
+    color:         var(--text2);
+    margin-bottom: 0.4rem;
+}
+
+.film-alt {
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+}
+
+.film-yil  { color: var(--text2); font-size: 0.85rem; }
+.film-puan { font-size: 0.85rem; color: var(--accent); font-weight: 500; }
+
+.kart-link {
+    display:       block;
+    text-align:    center;
+    padding:       0.5rem;
+    background:    var(--bg3);
+    border:        1px solid var(--border);
+    border-radius: 8px;
+    font-size:     0.85rem;
+    color:         var(--text2);
+    transition:    all 0.2s;
+    margin-top:    auto;
+}
+
+.kart-link:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
+
+/* ============================================================
+   FİLTRE BUTONLARI
+   ============================================================ */
+.filtre-form {
+    display:     flex;
+    flex-wrap:   wrap;
+    gap:         0.5rem;
+    margin-bottom: 2rem;
+}
+
+.filtre-btn {
+    padding:       0.4rem 1rem;
+    background:    var(--bg2);
+    border:        1px solid var(--border);
+    border-radius: 20px;
+    font-size:     0.85rem;
+    color:         var(--text2);
+    transition:    all 0.2s;
+    cursor:        pointer;
+}
+
+.filtre-btn:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
+
+.filtre-btn.aktif {
+    background: var(--accent);
+    color:      #000;
+    border-color: var(--accent);
+    font-weight: 600;
+    opacity: 1;
+}
+
+/* ============================================================
+   FİLM DETAY SAYFASI
+   ============================================================ */
+.geri-btn {
+    display:       inline-block;
+    margin-bottom: 1.5rem;
+    color:         var(--text2);
+    font-size:     0.9rem;
+    transition:    color 0.2s;
+}
+.geri-btn:hover { color: var(--accent); opacity: 1; }
+
+.detay-kart {
+    background:    var(--bg2);
+    border:        1px solid var(--border);
+    border-radius: 20px;
+    overflow:      hidden;
+}
+
+.detay-ust {
+    display:    flex;
+    gap:        2rem;
+    padding:    2.5rem 2rem;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.detay-poster {
+    width:         200px;
+    flex-shrink:   0;
+    border-radius: 12px;
+    overflow:      hidden;
+    box-shadow:    0 8px 32px rgba(0,0,0,0.5);
+}
+
+.detay-poster img {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    display:    block;
+}
+
+.detay-bilgi h1 {
+    font-family:    var(--font-bas);
+    font-size:      clamp(2rem, 5vw, 3rem);
+    letter-spacing: 2px;
+    line-height:    1;
+    margin:         0.5rem 0;
+}
+
+.detay-meta {
+    display: flex;
+    gap:     1rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+}
+
+.detay-meta span { color: var(--text2); font-size: 0.9rem; }
+
+.puan-badge {
+    background:    var(--accent);
+    color:         #000 !important;
+    padding:       0.2rem 0.6rem;
+    border-radius: 6px;
+    font-weight:   600 !important;
+}
+
+.detay-icerik { padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.detay-satir {
+    display:     flex;
+    gap:         1rem;
+    align-items: flex-start;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.detay-satir strong { color: var(--text2); min-width: 130px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.detay-satir span   { color: var(--text); }
+
+.detay-aciklama { display: flex; flex-direction: column; gap: 0.5rem; }
+.detay-aciklama strong { color: var(--text2); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.detay-aciklama p  { color: var(--text); line-height: 1.7; }
+
+.detay-aksiyon { padding: 1.5rem 2rem; border-top: 1px solid var(--border); }
+
+/* ============================================================
+   MESAJ SAYFASI
+   ============================================================ */
+.mesaj-form-kap {
+    background:    var(--bg2);
+    border:        1px solid var(--border);
+    border-radius: var(--radius);
+    padding:       1.5rem;
+    margin-bottom: 2rem;
+}
+
+.mesaj-form-kap h2 {
+    font-family:    var(--font-bas);
+    font-size:      1.5rem;
+    letter-spacing: 1px;
+    margin-bottom:  1.25rem;
+    color:          var(--accent);
+}
+
+.mesajlar-bolum h2 {
+    font-family:    var(--font-bas);
+    font-size:      1.5rem;
+    letter-spacing: 1px;
+    margin-bottom:  1.25rem;
+    display:        flex;
+    align-items:    center;
+    gap:            0.5rem;
+}
+
+.rozet {
+    display:       inline-flex;
+    align-items:   center;
+    justify-content: center;
+    background:    var(--accent);
+    color:         #000;
+    border-radius: 20px;
+    padding:       0.1rem 0.6rem;
+    font-size:     0.85rem;
+    font-family:   var(--font-gov);
+    font-weight:   600;
+}
+
+.mesaj-listesi { display: flex; flex-direction: column; gap: 1rem; }
+
+.mesaj-kart {
+    background:    var(--bg2);
+    border:        1px solid var(--border);
+    border-radius: var(--radius);
+    padding:       1.25rem;
+    transition:    border-color 0.2s;
+}
+
+.mesaj-kart:hover { border-color: var(--accent); }
+
+.mesaj-ust {
+    display:       flex;
+    align-items:   center;
+    gap:           0.75rem;
+    margin-bottom: 0.75rem;
+    flex-wrap:     wrap;
+}
+
+.mesaj-avatar {
+    width:           38px;
+    height:          38px;
+    background:      var(--accent);
+    color:           #000;
+    border-radius:   50%;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    font-weight:     700;
+    font-size:       1rem;
+    flex-shrink:     0;
+}
+
+.mesaj-meta { display: flex; flex-direction: column; gap: 0.1rem; flex: 1; }
+.mesaj-meta strong { font-size: 0.95rem; }
+
+.film-etiketi {
+    font-size:  0.78rem;
+    color:      var(--accent);
+    background: var(--bg3);
+    padding:    0.1rem 0.5rem;
+    border-radius: 4px;
+}
+
+.mesaj-tarih { color: var(--text2); font-size: 0.8rem; margin-left: auto; }
+
+.mesaj-metin {
+    color:     var(--text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ============================================================
+   PROFİL SAYFASI
+   ============================================================ */
+.profil-kap {
+    max-width: 700px;
+    margin:    0 auto;
+}
+
+.profil-ust {
+    display:       flex;
+    align-items:   center;
+    gap:           1.5rem;
+    padding:       2rem;
+    background:    var(--bg2);
+    border:        1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+}
+
+.profil-avatar {
+    width:           80px;
+    height:          80px;
+    background:      linear-gradient(135deg, var(--accent), var(--accent2));
+    color:           #000;
+    border-radius:   50%;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    font-family:     var(--font-bas);
+    font-size:       2.5rem;
+    flex-shrink:     0;
+}
+
+.profil-info h1 {
+    font-family:    var(--font-bas);
+    font-size:      2rem;
+    letter-spacing: 1px;
+}
+
+.profil-rozet {
+    color:      var(--accent);
+    font-size:  0.9rem;
+    margin-top: 0.25rem;
+}
+
+.profil-zaman { color: var(--text2); font-size: 0.85rem; margin-top: 0.25rem; }
+
+.istatistik-grid {
+    display:               grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:                   1rem;
+    margin-bottom:         1.5rem;
+}
+
+.istatistik-kart {
+    background:    var(--bg2);
+    border:        1px solid var(--border);
+    border-radius: var(--radius);
+    padding:       1.25rem;
+    text-align:    center;
+}
+
+.ist-sayi {
+    font-family:    var(--font-bas);
+    font-size:      2.5rem;
+    color:          var(--accent);
+    letter-spacing: 1px;
+}
+
+.ist-etiket { color: var(--text2); font-size: 0.85rem; margin-top: 0.25rem; }
+
+.profil-bolum {
+    background:    var(--bg2);
+    border:        1px solid var(--border);
+    border-radius: var(--radius);
+    padding:       1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.profil-bolum h2 {
+    font-family:    var(--font-bas);
+    font-size:      1.4rem;
+    letter-spacing: 1px;
+    margin-bottom:  1rem;
+    color:          var(--accent);
+}
+
+.mini-mesaj {
+    padding:       0.75rem;
+    background:    var(--bg3);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.mesaj-film-tag {
+    font-size:  0.78rem;
+    color:      var(--accent);
+    display:    block;
+    margin-bottom: 0.3rem;
+}
+
+.mini-mesaj p   { font-size: 0.9rem; color: var(--text); }
+.mini-mesaj small { color: var(--text2); font-size: 0.78rem; display: block; margin-top: 0.3rem; }
+
+.bos-metin { color: var(--text2); font-style: italic; }
+
+.profil-cikis { text-align: center; padding: 1rem 0; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+    border-top:  1px solid var(--border);
+    padding:     2rem 1.5rem;
+    margin-top:  3rem;
+    text-align:  center;
+}
+
+.footer-ic { max-width: 1100px; margin: 0 auto; }
+
+.footer p         { color: var(--text2); font-size: 0.9rem; }
+.footer-not       { font-size: 0.8rem; margin-top: 0.4rem; opacity: 0.6; }
+
+.footer-linkler {
+    display:    flex;
+    justify-content: center;
+    gap:        1.5rem;
+    margin-top: 1rem;
+}
+
+.footer-linkler a { color: var(--text2); font-size: 0.85rem; }
+.footer-linkler a:hover { color: var(--accent); opacity: 1; }
+
+/* ============================================================
+   YARDIMCI SINIFLAR
+   ============================================================ */
+.bos-sonuc {
+    text-align:    center;
+    padding:       3rem;
+    color:         var(--text2);
+    background:    var(--bg2);
+    border:        1px dashed var(--border);
+    border-radius: var(--radius);
+}
+
+.bos-sonuc a { color: var(--accent); }
+
+/* ============================================================
+   MOBİL UYUM (Responsive Design)
+   ============================================================ */
+@media (max-width: 640px) {
+    .navbar         { padding: 0.75rem 1rem; }
+    .nav-linkler    { gap: 0.25rem; }
+    .nav-link       { padding: 0.3rem 0.6rem; font-size: 0.8rem; }
+    .detay-ust      { flex-direction: column; text-align: center; padding: 1.5rem; }
+    .istatistik-grid { grid-template-columns: 1fr; }
+    .profil-ust     { flex-direction: column; text-align: center; }
+    .film-grid      { grid-template-columns: 1fr; }
+}
